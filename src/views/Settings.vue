@@ -1,21 +1,25 @@
 <template>
-  <section>
-    Settings
+  <layout title="Settings">
     <search-dropdown
       :choices="channels"
       searchKey="name"
     />
-  </section>
+  </layout>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator'
 
+// Components
+import Layout from '@/layout/Default.vue'
 import SearchDropdown from '@/components/SearchDropdown.vue'
+
+// Utils
 import Channel from '../../tests/utils/Channel'
 
 @Component({
   components: {
+    Layout,
     SearchDropdown
   }
 })

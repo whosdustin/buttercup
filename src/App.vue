@@ -1,15 +1,19 @@
 <template>
   <div id="app">
-    <router-link to="/">Home</router-link>
-    &nbsp;|&nbsp;
-    <router-link to="settings">Settings</router-link>
-    <router-view></router-view>
+    <main class="container">
+      <nav class="navbar">
+        <router-link to="/">Home</router-link>
+        &nbsp;
+        <router-link to="settings">Settings</router-link>
+      </nav>
+      <router-view />
+    </main>
     <notifications></notifications>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Vue, Component } from 'vue-property-decorator';
 import Notifications from '@/components/Notifications.vue';
 
 @Component({
@@ -19,3 +23,9 @@ import Notifications from '@/components/Notifications.vue';
 })
 export default class App extends Vue {}
 </script>
+
+<style lang="stylus" scoped>
+.navbar
+  height: 40px
+  margin-bottom: 10px
+</style>

@@ -2,7 +2,7 @@ import { shallowMount, Wrapper } from '@vue/test-utils';
 import SearchDropdown from '@/components/SearchDropdown.vue';
 import Channel from '../utils/Channel';
 
-describe.skip('@/components/SearchDropdown.vue', () => {
+describe('@/components/SearchDropdown.vue', () => {
   let wrapper: Wrapper<SearchDropdown>;
   const channel = new Channel(1, 'Alma')
   const mockStore = {

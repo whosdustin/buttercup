@@ -1,12 +1,27 @@
 <template>
-  <section>
-    Home
-  </section>
+  <layout title="Home">
+    <!-- <base-button @click="som">Submit</base-button> -->
+  </layout>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator'
 
-@Component
-export default class Home extends Vue {}
+// Layout
+import Layout from '@/layout/Default.vue'
+
+// Components
+import BaseButton from '@/components/BaseButton.vue'
+
+@Component({
+  components: {
+    Layout,
+    BaseButton
+  }
+})
+export default class Home extends Vue {
+  private som() {
+    console.log('hello')
+  }
+}
 </script>

@@ -9,7 +9,7 @@ export interface INotification {
   state: ColorState
 }
 
-type ColorState = 'primary' | 'link' | 'info' | 'success' | 'warning' | 'danger';
+export type ColorState = 'primary' | 'link' | 'info' | 'success' | 'warning' | 'danger';
 
 export interface IChannel {
   id: string,
