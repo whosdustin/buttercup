@@ -1,9 +1,8 @@
 import { shallowMount, Wrapper } from '@vue/test-utils';
 import SearchResult from '@/components/SearchResult.vue';
 import Channel from '../utils/Channel';
-import { IChannel } from '@/store/types';
 
-describe('@components/SearchResults', () => {
+describe('@/components/SearchResults.vue', () => {
   let wrapper: Wrapper<SearchResult>;
   const channel = new Channel('1', 'choice')
   const mockStore = {

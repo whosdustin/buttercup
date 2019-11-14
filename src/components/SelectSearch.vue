@@ -64,7 +64,8 @@ export default class SelectSearch extends Vue {
 <style lang="stylus" scoped>
 .panel
   max-height: 250px
-  padding-top: 52px;
+  padding-top: 52px
+  padding-bottom: 10px
   overflow-y: scroll
   box-shadow: none
 

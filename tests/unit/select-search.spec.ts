@@ -1,6 +1,7 @@
 import { shallowMount, Wrapper } from '@vue/test-utils'
 import SelectSearch from '@/components/SelectSearch.vue'
-import SearchResult from '@/components/SearchResult.vue';
+
+import Channel from '../utils/Channel'
 
 describe('@/components/SelectSearch.vue', () => {
   let wrapper: Wrapper<SelectSearch>;
@@ -9,8 +10,8 @@ describe('@/components/SelectSearch.vue', () => {
     wrapper = shallowMount(SelectSearch, {
       propsData: {
         choices: [
-          { id: '1', name: 'Alma' },
-          { id: '2', name: 'Polaris' }
+          new Channel(1, 'Alma'),
+          new Channel(2, 'Polaris')
         ],
         searchKey: 'name'
       }

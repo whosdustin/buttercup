@@ -7,8 +7,12 @@
         aria-haspopup="true"
         aria-controls="dropdown-menu"
         @click="toggleDropdown">
-        <span v-if="selection">{{ selection[searchKey] }}</span>
-        <span v-else>Select Channel</span>
+        <span v-if="selection">
+          {{ selection[searchKey] }}
+        </span>
+        <span v-else>
+          Select Channel
+        </span>
         <span class="icon is-small">
           <i class="fas fa-angle-down" aria-hidden="true"></i>
         </span>
@@ -36,11 +40,14 @@ import SelectSearch from '@/components/SelectSearch.vue'
   }
 })
 export default class SearchDropdown extends Vue {
-  @Prop(Object) private selection!: object;
   @Prop(String) private searchKey!: string;
   @Prop([String, Array]) private choices?: string | [];
 
   private isActive: boolean = false;
+
+  get selection() {
+    return this.$store.state.channel || null
+  }
 
   private toggleDropdown() {
     this.isActive = !this.isActive
