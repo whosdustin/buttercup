@@ -1,6 +1,6 @@
 <template>
   <layout title="Today" :subtitle="today">
-    <todo-item></todo-item>
+    <todo-list :todos="todos" />
   </layout>
 </template>
 
@@ -11,24 +11,29 @@ import { Vue, Component } from 'vue-property-decorator'
 import Layout from '@/layout/Default.vue'
 
 // Components
-import BaseButton from '@/components/BaseButton.vue'
-import TodoItem from '@/components/TodoItem.vue'
+import TodoList from '@/components/TodoList.vue'
 
 // Types
 import { ITodo } from '@/@types/types'
 
 // Utils
 import dayjs from 'dayjs'
+import Todo from '../../tests/utils/TodoItem'
 
 @Component({
   components: {
     Layout,
-    BaseButton,
-    TodoItem
+    TodoList
   }
 })
 export default class Home extends Vue {
   private today?: string;
+  private todos = [
+    new Todo(false, 'Hello how are you'),
+    new Todo(false, 'Shop for things'),
+    new Todo(true, 'Work hard and get paid'),
+    new Todo(false, 'Plan a party for payday')
+  ]
 
   private created() {
     const today = new Date()
