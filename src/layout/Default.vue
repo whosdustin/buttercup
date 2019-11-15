@@ -1,19 +1,25 @@
 <template>
   <section class="columns is-centered">
     <div class="column is-half">
-      <h1 v-if="title"
+      <h1
+        v-if="title"
         v-text="title"
         class="title is-1 has-text-white" />
+      <h2
+        v-if="subtitle"
+        v-text="subtitle"
+        class="subtitle is-5 has-text-grey-lighter"/>
       <slot />
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
 export default class Layout extends Vue {
   @Prop(String) private title?: string;
+  @Prop(String) private subtitle?: string;
 }
 </script>

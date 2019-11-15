@@ -42,3 +42,8 @@ interface IChannelInfo {
   creator: string,
   last_set: number
 }
+
+export interface ITodo {
+  done: boolean;
+  text: string;
+}

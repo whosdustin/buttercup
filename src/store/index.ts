@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import Vuex, { StoreOptions } from 'vuex';
-import { RootState, INotification, IChannel } from './types'
+import {
+  RootState,
+  INotification,
+  IChannel
+} from '@/@types/types'
 
 Vue.use(Vuex);
 

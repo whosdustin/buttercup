@@ -9,15 +9,18 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 
-import { ColorState } from '@/store/types'
+import { ColorState } from '@/@types/types'
 @Component
 export default class BaseButton extends Vue {
   @Prop({ default: 'primary'}) private color!: ColorState;
-  private classList = [
-    'button',
-    'is-outlined',
-    'is-rounded',
-    `is-${this.color}`
-  ]
+
+  get classList() {
+    return [
+      'button',
+      'is-outlined',
+      'is-rounded',
+      `is-${this.color}`
+    ]
+  }
 }
 </script>

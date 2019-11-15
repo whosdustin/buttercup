@@ -1,14 +1,14 @@
 <template>
   <div class="notifications" v-if="notifications">
     <transition-group name="slide-fade">
-      <div 
+      <div
         v-for="(n, i) in notifications"
-        :class="['notification', `is-${n.state}`]" 
+        :class="['notification', `is-${n.state}`]"
         :key="`${n.message}-${i}`">
 
         <p>{{ n.message }}</p>
 
-        <button 
+        <button
           class="delete"
           @click="removeNotification(n)">
         </button>
@@ -21,7 +21,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 // Interfaces
-import { INotification } from '@/store/types'
+import { INotification } from '@/@types/types'
 
 @Component
 export default class Notification extends Vue {
