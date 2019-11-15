@@ -21,7 +21,7 @@ export default class <%= h.changeCase.pascal(name) %> extends Vue {}
 }
 if (blocks.indexOf('style') !== -1) {
 %>
-<style lang="styl" scoped>
+<style lang="stylus" scoped>
 </style><%
 }
 %>
