@@ -13,7 +13,7 @@ describe('@components/TodoItem', () => {
 
   it('mounts with default data', async () => {
     await wrapper.vm.$nextTick()
-    expect(wrapper.props('value')).toEqual(new Todo(false, ''))
+    expect(wrapper.props('value')).toEqual(new Todo())
   })
 
   it('emits todo when checkbox is checked', async () => {
@@ -21,7 +21,7 @@ describe('@components/TodoItem', () => {
 
     checkbox.setChecked()
     await wrapper.vm.$nextTick()
-    expect(wrapper.emitted('input')[0]).toEqual([new Todo(true, '')])
+    expect(wrapper.emitted('input')[0]).toEqual([new Todo('', true)])
   })
 
   it('emits todo when typed in textarea', async () => {
@@ -29,7 +29,7 @@ describe('@components/TodoItem', () => {
     textarea.setValue('Hello')
 
     await wrapper.vm.$nextTick()
-    expect(wrapper.emitted('input')[0]).toEqual([new Todo(false, 'Hello')])
+    expect(wrapper.emitted('input')[0]).toEqual([new Todo('Hello')])
   })
 
   it('emits new-todo on keydown Enter', async () => {

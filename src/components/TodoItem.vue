@@ -51,7 +51,7 @@ export default class TodoItem extends Vue {
     textarea: HTMLElement;
   }
   @Prop({
-    default: () => (new Todo(false, ''))
+    default: () => (new Todo())
   }) private value!: ITodo
   private todo: ITodo = { ...this.value };
   private deletable: boolean = false;

@@ -55,7 +55,7 @@ export default class TodoList extends Vue {
 
   private newTodo(index?: number) {
     const nextIndex = (typeof index === 'number') ? index + 1 : 0
-    this.model.splice(nextIndex, 0, new Todo(false, ''))
+    this.model.splice(nextIndex, 0, new Todo())
     this.$nextTick(() => {
       this.focusTodo(nextIndex)
     })

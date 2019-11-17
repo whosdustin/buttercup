@@ -55,7 +55,7 @@ export default class Home extends Vue {
   private today?: string;
   private title: string = 'Today';
   private todos = [
-    new Todo(false, 'Hello how are you'),
+    new Todo('Hello how are you'),
   ]
 
   get subtitle() {

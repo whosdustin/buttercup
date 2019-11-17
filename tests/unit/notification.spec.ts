@@ -1,12 +1,15 @@
 import { shallowMount, Wrapper } from '@vue/test-utils';
 import Notifications from '@/components/Notifications.vue';
 
+// Utils
+import Notify from '@/utils/Notify'
+
 describe('@/components/Notifications.vue', () => {
   let wrapper: Wrapper<Notifications>;
   const mockStore = {
     state: {
       notifications: [
-        { message: 'Alert', state: 'danger' }
+        new Notify('Alert')
       ]
     },
     commit: jest.fn()

@@ -24,7 +24,7 @@ describe('@components/TodoList', () => {
   it('displays a todo item when data is sent', async () => {
     wrapper = shallowMount(TodoList, {
       propsData: {
-        todos: [ new Todo(false, 'Hello') ]
+        todos: [ new Todo('Hello') ]
       }
     })
 
@@ -36,12 +36,12 @@ describe('@components/TodoList', () => {
   it('prints data in todo-item when data sent', async () => {
     wrapper = shallowMount(TodoList, {
       propsData: {
-        todos: [ new Todo(false, 'Hello') ]
+        todos: [ new Todo('Hello') ]
       },
       stubs: { 'todo-item': TodoItem }
     })
 
     const todo = wrapper.find(TodoItem)
-    expect(todo.props('value')).toStrictEqual(new Todo(false, 'Hello'))
+    expect(todo.props('value')).toStrictEqual(new Todo('Hello'))
   })
 });

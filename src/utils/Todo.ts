@@ -2,8 +2,8 @@ export default class Todo {
   public done: boolean;
   public text: string;
   constructor(
-    done: boolean,
-    text: string
+    text: string = '',
+    done: boolean = false,
   ) {
     this.done = done;
     this.text = text;
