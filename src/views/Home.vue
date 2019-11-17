@@ -1,5 +1,5 @@
 <template>
-  <layout :title="layoutTitle" :subtitle="today">
+  <layout :title="title" :subtitle="subtitle">
     <tab-list @active-tab="displayTitle">
       <tab-item
         name="Previous Day"
@@ -53,10 +53,14 @@ import Todo from '@/utils/Todo'
 })
 export default class Home extends Vue {
   private today?: string;
-  private layoutTitle: string = 'Today';
+  private title: string = 'Today';
   private todos = [
     new Todo(false, 'Hello how are you'),
   ]
+
+  get subtitle() {
+    return this.title === 'Today' ? this.today : '&nbsp;'
+  }
 
   get emptyBlocker() {
     return {
@@ -78,7 +82,7 @@ export default class Home extends Vue {
   }
 
   private displayTitle(tab: ITab) {
-    this.layoutTitle = tab.name ? tab.name : this.layoutTitle;
+    this.title = tab.name ? tab.name : this.title;
   }
 }
 </script>

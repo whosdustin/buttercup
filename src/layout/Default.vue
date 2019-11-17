@@ -9,10 +9,10 @@
             class="title is-1 has-text-white" />
           <h2
             v-if="subtitle"
-            v-text="subtitle"
+            v-html="subtitle"
             class="subtitle is-5 has-text-grey-lighter"/>
         </div>
-        <div class="column is-narrow">
+        <nav class="column is-narrow">
           <router-link
             title="Settings"
             to="settings">
@@ -20,7 +20,7 @@
               <i class="fas fa-2x fa-sliders-h" />
             </span>
           </router-link>
-        </div>
+        </nav>
       </div>
       <slot />
     </div>
