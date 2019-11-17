@@ -20,6 +20,9 @@
           :class="textareaClasses"
           :value="todo.text"
           @input="updateText($event.target.value)"
+          @keydown.enter.prevent="$emit('new-todo')"
+          @keydown.delete="toggleDeletable"
+          @keyup.delete="deleteTodo"
         />
       </div>
     </div>
@@ -37,6 +40,9 @@ import {
 // Types
 import { ITodo } from '@/@types/types';
 
+// Utils
+import Todo from '@/utils/Todo'
+
 @Component({
   inheritAttrs: false
 })
@@ -45,9 +51,10 @@ export default class TodoItem extends Vue {
     textarea: HTMLElement;
   }
   @Prop({
-    default: () => ({ done: false, text: '' })
+    default: () => (new Todo(false, ''))
   }) private value!: ITodo
   private todo: ITodo = { ...this.value };
+  private deletable: boolean = false;
 
   get textareaClasses() {
     return [
@@ -62,7 +69,10 @@ export default class TodoItem extends Vue {
   private mounted() {
     const el = this.$refs.textarea
     this.$nextTick(() => {
-      el.setAttribute('style', 'height:' + (el.scrollHeight) + 'px')
+      el.setAttribute(
+        'style',
+        'height:' + (el.scrollHeight) + 'px'
+      )
     })
 
     el.addEventListener('input', this.resizeTextarea)
@@ -76,6 +86,16 @@ export default class TodoItem extends Vue {
   private updateText(text: string) {
     this.todo.text = text;
     this.$emit('input', this.todo)
+  }
+
+  private toggleDeletable() {
+    this.deletable = (this.todo.text.length === 0) ? true : false
+  }
+
+  private deleteTodo() {
+    if (this.deletable) {
+      this.$emit('delete-todo')
+    }
   }
 
   private resizeTextarea(event: Event) {

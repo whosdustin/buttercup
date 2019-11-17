@@ -1,18 +1,36 @@
 <template>
   <layout title="Settings">
-    <search-dropdown
-      :choices="channels"
-      searchKey="name"
-    />
+    <div class="columns">
+      <div class="column">
+        <search-dropdown
+          :choices="channels"
+          searchKey="name"
+        />
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <base-button
+          @click="$router.push('/')">
+          <span class="icon is-small">
+            <i class="fas fa-caret-left"></i>
+          </span>
+          <span>Back</span>
+        </base-button>
+      </div>
+    </div>
   </layout>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 
-// Components
+// Layout
 import Layout from '@/layout/Default.vue'
+
+// Components
 import SearchDropdown from '@/components/SearchDropdown.vue'
+import BaseButton from '@/components/BaseButton.vue'
 
 // Utils
 import Channel from '../../tests/utils/Channel'
@@ -20,7 +38,8 @@ import Channel from '../../tests/utils/Channel'
 @Component({
   components: {
     Layout,
-    SearchDropdown
+    SearchDropdown,
+    BaseButton
   }
 })
 export default class Settings extends Vue {

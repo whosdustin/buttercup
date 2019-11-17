@@ -18,7 +18,7 @@ import { ITodo } from '@/@types/types'
 
 // Utils
 import dayjs from 'dayjs'
-import Todo from '../../tests/utils/TodoItem'
+import Todo from '@/utils/Todo'
 
 @Component({
   components: {
@@ -29,10 +29,7 @@ import Todo from '../../tests/utils/TodoItem'
 export default class Home extends Vue {
   private today?: string;
   private todos = [
-    new Todo(false, 'Hello how are you'),
-    new Todo(false, 'Shop for things'),
-    new Todo(true, 'Work hard and get paid'),
-    new Todo(false, 'Plan a party for payday')
+    // new Todo(false, 'Hello how are you'),
   ]
 
   private created() {

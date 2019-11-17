@@ -2,7 +2,7 @@ import { Wrapper, shallowMount } from '@vue/test-utils';
 import TodoItem from '@/components/TodoItem.vue';
 
 // Utils
-import Todo from '../utils/TodoItem'
+import Todo from '@/utils/Todo'
 
 describe('@components/TodoItem', () => {
   let wrapper: Wrapper<TodoItem>;
@@ -30,5 +30,30 @@ describe('@components/TodoItem', () => {
 
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input')[0]).toEqual([new Todo(false, 'Hello')])
+  })
+
+  it('emits new-todo on keydown Enter', async () => {
+    const textarea = wrapper.find('textarea')
+    textarea.trigger('keydown.enter')
+
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('new-todo')).toBeTruthy()
+  })
+
+  it('is deletable on keydown Delete when new', async () => {
+    const textarea = wrapper.find('textarea')
+    textarea.trigger('keydown.delete')
+
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.$data.deletable).toBe(true)
+  })
+
+  it('is not deletable on keydown Delete when > 1 characters', async () => {
+    const textarea = wrapper.find('textarea')
+    textarea.setValue('H')
+    textarea.trigger('keydown.delete')
+
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.$data.deletable).toBe(false)
   })
 });

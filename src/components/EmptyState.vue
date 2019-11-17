@@ -1,10 +1,19 @@
 <template>
   <div class="box has-background-grey-darker has-text-grey-light">
-    <div v-if="title">
+    <div
+      v-if="title || action"
+      class="has-text-centered">
       <h3
         class="title is-size-4 has-text-grey-light"
         v-text="title" />
-      <p v-if="content" v-text="content" />
+      <p
+        v-if="content"
+        v-text="content"
+        class="subtitle has-text-grey-light" />
+      <base-button
+        v-if="action"
+        @click="$emit('action-click')"
+        v-html="action"/>
     </div>
     <div v-else>
       <div class="empty-title" />
@@ -19,10 +28,18 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 
-@Component
+// Components
+import BaseButton from '@/components/BaseButton.vue'
+
+@Component({
+  components: {
+    BaseButton
+  }
+})
 export default class EmptyState extends Vue {
   @Prop(String) private title?: string;
   @Prop(String) private content?: string;
+  @Prop(String) private action?: string;
 }
 </script>
 

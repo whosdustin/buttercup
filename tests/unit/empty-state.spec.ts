@@ -34,6 +34,17 @@ describe('@components/EmptyState', () => {
     expect(wrapper.find('p').text()).toContain('World')
   })
 
+  it('displays action button', async () => {
+    wrapper = shallowMount(EmptyState, {
+      propsData: {
+        action: 'Button'
+      }
+    })
+
+    await wrapper.vm.$nextTick()
+    expect(wrapper.find('base-button-stub').exists()).toBe(true)
+  })
+
   it('displays fake text divs when no props', async () => {
     wrapper = shallowMount(EmptyState)
 

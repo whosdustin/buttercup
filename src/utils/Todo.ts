@@ -1,4 +1,4 @@
-export default class TodoItem {
+export default class Todo {
   public done: boolean;
   public text: string;
   constructor(

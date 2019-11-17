@@ -1,31 +1,29 @@
 <template>
   <div id="app">
     <main class="container">
-      <nav class="navbar">
-        <router-link to="/">Home</router-link>
-        &nbsp;
-        <router-link to="settings">Settings</router-link>
-      </nav>
       <router-view />
     </main>
-    <notifications></notifications>
+    <notifications />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+
+// Components
 import Notifications from '@/components/Notifications.vue';
+import BaseButton from '@/components/BaseButton.vue';
 
 @Component({
   components: {
-    Notifications
+    Notifications,
+    BaseButton
   }
 })
 export default class App extends Vue {}
 </script>
 
 <style lang="stylus" scoped>
-.navbar
-  height: 40px
-  margin-bottom: 10px
+.container
+  padding-top: 2em
 </style>

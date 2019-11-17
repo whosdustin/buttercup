@@ -19,6 +19,7 @@ export default class BaseButton extends Vue {
       'button',
       'is-outlined',
       'is-rounded',
+      'is-uppercase',
       `is-${this.color}`
     ]
   }

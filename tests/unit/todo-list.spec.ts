@@ -3,7 +3,7 @@ import TodoList from '@/components/TodoList.vue';
 import TodoItem from '@/components/TodoItem.vue';
 
 // Utils
-import Todo from '../utils/TodoItem'
+import Todo from '@/utils/Todo'
 
 describe('@components/TodoList', () => {
   let wrapper: Wrapper<TodoList>;
@@ -24,9 +24,7 @@ describe('@components/TodoList', () => {
   it('displays a todo item when data is sent', async () => {
     wrapper = shallowMount(TodoList, {
       propsData: {
-        todos: [
-          new Todo(false, 'Hello')
-        ]
+        todos: [ new Todo(false, 'Hello') ]
       }
     })
 
