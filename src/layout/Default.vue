@@ -1,7 +1,7 @@
 <template>
   <section class="columns is-centered">
-    <div class="column is-half">
-      <div class="columns">
+    <nav class="column is-half">
+      <nav class="columns">
         <div class="column">
           <h1
             v-if="title"
@@ -21,9 +21,9 @@
             </span>
           </router-link>
         </nav>
-      </div>
+      </nav>
       <slot />
-    </div>
+    </nav>
   </section>
 </template>
 
