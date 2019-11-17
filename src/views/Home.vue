@@ -1,6 +1,19 @@
 <template>
   <layout title="Today" :subtitle="today">
-    <todo-list :todos="todos" />
+    <tab-list>
+      <tab-item
+        name="Yesterday"
+        icon="fas fa-history" />
+      <tab-item
+        name="Today"
+        icon="fas fa-calendar-day"
+        :selected="true">
+        <todo-list :todos="todos" />
+      </tab-item>
+      <tab-item
+        name="Blockers"
+        icon="fas fa-exclamation-triangle" />
+    </tab-list>
   </layout>
 </template>
 
@@ -12,6 +25,8 @@ import Layout from '@/layout/Default.vue'
 
 // Components
 import TodoList from '@/components/TodoList.vue'
+import TabList from '@/components/TabList.vue'
+import TabItem from '@/components/TabItem.vue'
 
 // Types
 import { ITodo } from '@/@types/types'
@@ -23,7 +38,9 @@ import Todo from '@/utils/Todo'
 @Component({
   components: {
     Layout,
-    TodoList
+    TodoList,
+    TabItem,
+    TabList
   }
 })
 export default class Home extends Vue {

@@ -47,18 +47,19 @@ export default class EmptyState extends Vue {
 @import '../assets/stylus/utilities/initial-variables.styl'
 
 $empty
-  margin-bottom: 0.7em
-  background: $grey-darker
+  background: $grey-dark
 
 .empty-title
   @extend $empty
   height: $size-3
   width: 69%
+  margin-bottom: 1.3em
 
 .empty-text
   @extend $empty
   height: $size-5
   width: 87%
+  margin-bottom: 0.8em
 
   &:last-child
     margin-bottom: 0

@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export interface RootState {
   notifications?: INotification[];
   channels?: IChannel[];
@@ -46,4 +48,9 @@ interface IChannelInfo {
 export interface ITodo {
   done: boolean;
   text: string;
+}
+
+export interface ITab extends Vue {
+  name?: string;
+  isActive?: boolean;
 }
