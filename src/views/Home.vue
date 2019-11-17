@@ -1,9 +1,13 @@
 <template>
-  <layout title="Today" :subtitle="today">
-    <tab-list>
+  <layout :title="layoutTitle" :subtitle="today">
+    <tab-list @active-tab="displayTitle">
       <tab-item
-        name="Yesterday"
-        icon="fas fa-history" />
+        name="Previous Day"
+        icon="fas fa-history">
+        <todo-list
+          :todos="[]"
+          :empty="emptyPast" />
+      </tab-item>
       <tab-item
         name="Today"
         icon="fas fa-calendar-day"
@@ -12,7 +16,11 @@
       </tab-item>
       <tab-item
         name="Blockers"
-        icon="fas fa-exclamation-triangle" />
+        icon="fas fa-exclamation-triangle" >
+        <todo-list
+          :todos="[]"
+          :empty="emptyBlocker" />
+      </tab-item>
     </tab-list>
   </layout>
 </template>
@@ -29,7 +37,7 @@ import TabList from '@/components/TabList.vue'
 import TabItem from '@/components/TabItem.vue'
 
 // Types
-import { ITodo } from '@/@types/types'
+import { ITodo, ITab } from '@/@types/types'
 
 // Utils
 import dayjs from 'dayjs'
@@ -45,13 +53,32 @@ import Todo from '@/utils/Todo'
 })
 export default class Home extends Vue {
   private today?: string;
+  private layoutTitle: string = 'Today';
   private todos = [
-    // new Todo(false, 'Hello how are you'),
+    new Todo(false, 'Hello how are you'),
   ]
 
+  get emptyBlocker() {
+    return {
+      title: 'No Blockers! Great!',
+      action: '&plus; blocker'
+    }
+  }
+
+  get emptyPast() {
+    return {
+      title: 'What did you work on previously?',
+      action: '&plus; task'
+    }
+  }
+
   private created() {
-    const today = new Date()
-    this.today = dayjs(today).format('dddd | MMMM D, YYYY')
+    const $today = new Date()
+    this.today = dayjs($today).format('dddd | MMMM D, YYYY')
+  }
+
+  private displayTitle(tab: ITab) {
+    this.layoutTitle = tab.name ? tab.name : this.layoutTitle;
   }
 }
 </script>

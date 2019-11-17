@@ -40,6 +40,7 @@ export default class TabList extends Vue {
 
   private selectTab(tab: ITab) {
     this.tabs.map((t) => t.isActive = t.name === tab.name)
+    this.$emit('active-tab', tab)
   }
 }
 </script>

@@ -14,9 +14,9 @@
     </div>
     <empty-state
       v-else
-      title="You have nothing to do."
-      content="Let's get you started."
-      action="&plus; New Task"
+      :title="empty.title"
+      :content="empty.content"
+      :action="empty.action"
       @action-click="newTodo()" />
   </section>
 </template>
@@ -29,11 +29,10 @@ import TodoItem from '@/components/TodoItem.vue'
 import EmptyState from '@/components/EmptyState.vue'
 
 // Types
-import { ITodo } from '@/@types/types'
+import { ITodo, IEmptyState } from '@/@types/types'
 
 // Utils
 import Todo from '@/utils/Todo'
-import { VueClass } from 'vue-class-component/lib/declarations';
 
 @Component({
   components: {
@@ -45,6 +44,13 @@ export default class TodoList extends Vue {
   @Prop({
     default: () => ([])
   }) private todos!: ITodo[]
+  @Prop({
+    default: () => ({
+      title: 'You have nothing to do.',
+      content: 'Let\'s get you started.',
+      action: '&plus; New Task'
+    })
+  }) private empty!: IEmptyState;
   private model = [ ...this.todos ]
 
   private newTodo(index?: number) {

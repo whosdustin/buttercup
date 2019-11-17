@@ -54,3 +54,9 @@ export interface ITab extends Vue {
   name?: string;
   isActive?: boolean;
 }
+
+export interface IEmptyState {
+  title: string;
+  content: string;
+  action: string;
+}
