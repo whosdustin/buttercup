@@ -1,9 +1,12 @@
 import Vue from 'vue'
+import Standup from '@/utils/Standup';
+import Todo from '@/utils/Todo';
 
 export interface RootState {
   notifications?: INotification[];
   channels?: IChannel[];
   channel: IChannel | null;
+  standups: Standup[]
 }
 
 export interface INotification {
@@ -45,9 +48,9 @@ interface IChannelInfo {
   last_set: number
 }
 
-export interface ITodo {
-  done: boolean;
-  text: string;
+export interface ITodosBySection {
+  section: StandupSection;
+  todos: Todo[]
 }
 
 export interface ITab extends Vue {
@@ -57,6 +60,8 @@ export interface ITab extends Vue {
 
 export interface IEmptyState {
   title: string;
-  content: string;
+  content?: string;
   action: string;
 }
+
+export type StandupSection = 'past' | 'present' | 'blocker'

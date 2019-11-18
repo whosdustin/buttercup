@@ -1,27 +1,21 @@
 <template>
   <layout :title="title" :subtitle="subtitle">
-    <tab-list @active-tab="displayTitle">
+    <tab-list
+      v-if="standups"
+      @active-tab="displayTitle">
       <tab-item
-        name="Previous Day"
-        icon="fas fa-history">
+        v-for="(s, i) in standups"
+        :key="`${s.section}-${i}`"
+        :name="s.name"
+        :icon="s.icon"
+        :selected="title === s.name">
         <todo-list
-          :todos="[]"
-          :empty="emptyPast" />
-      </tab-item>
-      <tab-item
-        name="Today"
-        icon="fas fa-calendar-day"
-        :selected="true">
-        <todo-list :todos="todos" />
-      </tab-item>
-      <tab-item
-        name="Blockers"
-        icon="fas fa-exclamation-triangle" >
-        <todo-list
-          :todos="[]"
-          :empty="emptyBlocker" />
+          :section="s.section"
+          :todos="s.todos"
+          :empty="s.empty" />
       </tab-item>
     </tab-list>
+    <empty-state v-else />
   </layout>
 </template>
 
@@ -35,45 +29,35 @@ import Layout from '@/layout/Default.vue'
 import TodoList from '@/components/TodoList.vue'
 import TabList from '@/components/TabList.vue'
 import TabItem from '@/components/TabItem.vue'
+import EmptyState from '@/components/EmptyState.vue'
 
 // Types
-import { ITodo, ITab } from '@/@types/types'
+import { ITab } from '@/@types/types'
 
 // Utils
 import dayjs from 'dayjs'
 import Todo from '@/utils/Todo'
+import Standup from '../utils/Standup'
 
 @Component({
   components: {
     Layout,
     TodoList,
     TabItem,
-    TabList
+    TabList,
+    EmptyState
   }
 })
 export default class Home extends Vue {
   private today?: string;
   private title: string = 'Today';
-  private todos = [
-    new Todo('Hello how are you'),
-  ]
 
   get subtitle() {
     return this.title === 'Today' ? this.today : '&nbsp;'
   }
 
-  get emptyBlocker() {
-    return {
-      title: 'No Blockers! Great!',
-      action: '&plus; blocker'
-    }
-  }
-
-  get emptyPast() {
-    return {
-      title: 'What did you work on previously?',
-      action: '&plus; task'
-    }
+  get standups() {
+    return this.$store.state.standups
   }
 
   private created() {
