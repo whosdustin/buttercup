@@ -5,8 +5,9 @@
       :key="model.length">
       <todo-item
         v-for="(todo, i) in model"
-        :key="`todo-${i}`"
-        :ref="`todo-${i}`"
+        :key="`todo-${section}-${i}`"
+        :ref="`todo-${section}-${i}`"
+        :id="`todo-${section}-${i}`"
         v-model="model[i]"
         @new-todo="newTodo(i)"
         @delete-todo="deleteTodo(i)"
@@ -22,14 +23,19 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
+import {
+  Vue,
+  Component,
+  Prop,
+  Watch
+} from 'vue-property-decorator';
 
 // Components
 import TodoItem from '@/components/TodoItem.vue'
 import EmptyState from '@/components/EmptyState.vue'
 
 // Types
-import { ITodo, IEmptyState } from '@/@types/types'
+import { IEmptyState } from '@/@types/types'
 
 // Utils
 import Todo from '@/utils/Todo'
@@ -43,7 +49,7 @@ import Todo from '@/utils/Todo'
 export default class TodoList extends Vue {
   @Prop({
     default: () => ([])
-  }) private todos!: ITodo[]
+  }) private todos!: Todo[]
   @Prop({
     default: () => ({
       title: 'You have nothing to do.',
@@ -51,7 +57,23 @@ export default class TodoList extends Vue {
       action: '&plus; New Task'
     })
   }) private empty!: IEmptyState;
+  @Prop({
+    type: String,
+    required: true,
+    validator: (value) => {
+      const available = ['past', 'present', 'blocker']
+      return available.findIndex((a) => a === value) !== -1
+    }
+  }) private section!: string;
   private model = [ ...this.todos ]
+
+  @Watch('model')
+  private handleState() {
+    this.$store.commit('SET_TODOS', {
+      section: this.section,
+      todos: this.model
+    })
+  }
 
   private newTodo(index?: number) {
     const nextIndex = (typeof index === 'number') ? index + 1 : 0
@@ -73,7 +95,7 @@ export default class TodoList extends Vue {
       return
     }
 
-    ((this.$refs[`todo-${index}`] as Vue[])[0]
+    ((this.$refs[`todo-${this.section}-${index}`] as Vue[])[0]
       .$refs.textarea as HTMLElement
     ).focus()
   }

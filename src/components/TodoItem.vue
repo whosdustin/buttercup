@@ -1,16 +1,9 @@
 <template>
-  <div class="columns">
+  <div :class="['columns', { faded: todo.done }]">
     <div class="column is-narrow">
-      <label
-        for="done"
-        class="checkbox">
-        <input
-          id="done"
-          type="checkbox"
-          :checked="todo.done"
-          @change="updateDone($event.target.checked)"
-        />
-      </label>
+      <base-checkbox
+        :id="id"
+        v-model="todo.done" />
     </div>
     <div class="column">
       <div class="control">
@@ -37,13 +30,16 @@ import {
   Watch
 } from 'vue-property-decorator';
 
-// Types
-import { ITodo } from '@/@types/types';
+import BaseCheckbox from '@/components/BaseCheckbox.vue'
 
 // Utils
 import Todo from '@/utils/Todo'
+import TodoList from './TodoList.vue';
 
 @Component({
+  components: {
+    BaseCheckbox
+  },
   inheritAttrs: false
 })
 export default class TodoItem extends Vue {
@@ -52,8 +48,12 @@ export default class TodoItem extends Vue {
   }
   @Prop({
     default: () => (new Todo())
-  }) private value!: ITodo
-  private todo: ITodo = { ...this.value };
+  }) private value!: Todo
+  @Prop({
+    type: String,
+    required: true
+  }) private id!: string;
+  private todo: Todo = { ...this.value };
   private deletable: boolean = false;
 
   get textareaClasses() {
@@ -61,7 +61,7 @@ export default class TodoItem extends Vue {
       'textarea',
       'has-fixed-size',
       'has-text-white-ter',
-      'has-background-grey-dark',
+      'is-size-5',
       { done: this.todo.done }
     ]
   }
@@ -78,8 +78,8 @@ export default class TodoItem extends Vue {
     el.addEventListener('input', this.resizeTextarea)
   }
 
+  @Watch('todo.done')
   private updateDone(done: boolean) {
-    this.todo.done = done;
     this.$emit('input', this.todo)
   }
 
@@ -111,9 +111,25 @@ export default class TodoItem extends Vue {
 </script>
 
 <style lang="stylus" scoped>
+.columns
+  opacity: 1
+  transition: all 0.3s ease-out
+
+  .faded
+    opacity: 0.3
+
+.column
+  padding: 0.25em 0.75em
+
 .textarea
   overflow-y: hidden
   border: 0
+  border-radius: 0
+  background: transparent
+
+  &:focus
+    border: 0
+    box-shadow: none
 
   &.done
     text-decoration: line-through
