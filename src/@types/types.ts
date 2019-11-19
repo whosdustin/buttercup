@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import Standup from '@/utils/Standup';
-import Todo from '@/utils/Todo';
+import Standup from '@/models/Standup';
+import Todo from '@/models/Todo';
 
 export interface RootState {
   notifications?: INotification[];
@@ -65,3 +65,17 @@ export interface IEmptyState {
 }
 
 export type StandupSection = 'past' | 'present' | 'blocker'
+
+export type BlockType = 'context' | 'section' | 'divider'
+
+export interface IBlockContent {
+  type: 'mrkdwn' | string;
+  text: string | null;
+}
+
+export interface IUrls {
+  name: string;
+  match: string;
+  prepend: string;
+  append?: string;
+}
