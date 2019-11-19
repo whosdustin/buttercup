@@ -29,20 +29,30 @@ const store: StoreOptions<RootState> = {
       new Standup(
         'present',
         'Today',
-        'fas fa-calendar-day'
+        'fas fa-calendar-day',
+        {
+          title: 'What are you doing today?',
+          action: '&plus; New Task'
+        }
       ),
       new Standup(
         'blocker',
         'Blockers',
         'fas fa-exclamation-triangle',
         {
-          title: 'No Blockers! Great!',
+          title: 'Do you have any concerns or blockers?',
           action: '&plus; blocker'
         }
       )
     ]
   },
   mutations: {
+    INIT_STORE(state) {
+      if (localStorage.getItem('store')) {
+        const $store = localStorage.getItem('store') || ''
+        this.replaceState(Object.assign(state, JSON.parse($store)))
+      }
+    },
     SET_CHANNEL(state, channel: IChannel) {
       state.channel = channel;
     },

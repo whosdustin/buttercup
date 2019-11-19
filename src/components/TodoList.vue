@@ -50,13 +50,7 @@ export default class TodoList extends Vue {
   @Prop({
     default: () => ([])
   }) private todos!: Todo[]
-  @Prop({
-    default: () => ({
-      title: 'You have nothing to do.',
-      content: 'Let\'s get you started.',
-      action: '&plus; New Task'
-    })
-  }) private empty!: IEmptyState;
+  @Prop(Object) private empty!: IEmptyState;
   @Prop({
     type: String,
     required: true,
