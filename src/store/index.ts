@@ -7,7 +7,7 @@ import {
   ITodosBySection
 } from '@/@types/types'
 
-import Standup from '@/utils/Standup'
+import Standup from '@/models/Standup'
 
 Vue.use(Vuex);
 

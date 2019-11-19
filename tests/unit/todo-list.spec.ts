@@ -3,7 +3,7 @@ import TodoList from '@/components/TodoList.vue';
 import TodoItem from '@/components/TodoItem.vue';
 
 // Utils
-import Todo from '@/utils/Todo'
+import Todo from '@/models/Todo'
 
 describe('@components/TodoList', () => {
   let wrapper: Wrapper<TodoList>;

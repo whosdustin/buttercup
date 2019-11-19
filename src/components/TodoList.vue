@@ -38,7 +38,7 @@ import EmptyState from '@/components/EmptyState.vue'
 import { IEmptyState } from '@/@types/types'
 
 // Utils
-import Todo from '@/utils/Todo'
+import Todo from '@/models/Todo'
 
 @Component({
   components: {

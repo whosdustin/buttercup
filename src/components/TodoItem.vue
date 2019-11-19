@@ -33,7 +33,7 @@ import {
 import BaseCheckbox from '@/components/BaseCheckbox.vue'
 
 // Utils
-import Todo from '@/utils/Todo'
+import Todo from '@/models/Todo'
 import TodoList from './TodoList.vue';
 
 @Component({

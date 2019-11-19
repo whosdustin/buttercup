@@ -15,7 +15,10 @@
           :empty="s.empty" />
       </tab-item>
     </tab-list>
-    <empty-state v-else />
+    <empty-state
+      v-else
+      v-for="n in 4"
+      :key="n * 9999" />
   </layout>
 </template>
 
@@ -36,8 +39,8 @@ import { ITab } from '@/@types/types'
 
 // Utils
 import dayjs from 'dayjs'
-import Todo from '@/utils/Todo'
-import Standup from '../utils/Standup'
+import Todo from '@/models/Todo'
+import Standup from '@/models/Standup'
 
 @Component({
   components: {

@@ -2,7 +2,7 @@ import { Wrapper, shallowMount } from '@vue/test-utils';
 import TodoItem from '@/components/TodoItem.vue';
 
 // Utils
-import Todo from '@/utils/Todo'
+import Todo from '@/models/Todo'
 
 describe('@components/TodoItem', () => {
   let wrapper: Wrapper<TodoItem>;

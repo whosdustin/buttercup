@@ -2,7 +2,7 @@ import { shallowMount, Wrapper } from '@vue/test-utils';
 import Notifications from '@/components/Notifications.vue';
 
 // Utils
-import Notify from '@/utils/Notify'
+import Notify from '@/models/Notify'
 
 describe('@/components/Notifications.vue', () => {
   let wrapper: Wrapper<Notifications>;

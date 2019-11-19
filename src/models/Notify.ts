@@ -5,7 +5,7 @@ export default class Notify {
   public state: ColorState;
   constructor(
     message: string = '',
-    state: ColorState = 'info'
+    state: ColorState = 'danger'
   ) {
     this.message = message
     this.state = state
