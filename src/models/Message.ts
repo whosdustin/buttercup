@@ -1,16 +1,18 @@
-import Block from './Block'
+import { KnownBlock, Block } from '@slack/web-api';
 
 export default class Message {
-  private channel: string;
-  private blocks: Block[];
+  public channel: string;
+  public text: string;
+  public blocks: Array<KnownBlock | Block>;
   /* tslint:disable-next-line */
-  private as_user: boolean;
+  public as_user: boolean;
   constructor(
     channel: string,
-    blocks: Block[],
+    blocks: Array<KnownBlock | Block>,
     /* tslint:disable-next-line */
     as_user: boolean = true
   ) {
+    this.text = ''
     this.channel = channel
     this.as_user = as_user
     this.blocks = blocks

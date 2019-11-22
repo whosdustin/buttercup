@@ -1,7 +1,7 @@
 <template>
   <div v-if="isActive">
-    <slot />
     <empty-state v-if="!hasSlot" />
+    <slot v-else />
   </div>
 </template>
 

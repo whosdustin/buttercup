@@ -24,6 +24,11 @@ export default class App extends Vue {}
 </script>
 
 <style lang="stylus" scoped>
+#app
+  height: 100%
+
 .container
+  height: 100%
   padding-top: 2em
+
 </style>

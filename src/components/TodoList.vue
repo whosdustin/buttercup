@@ -13,12 +13,15 @@
         @delete-todo="deleteTodo(i)"
       />
     </div>
-    <empty-state
-      v-else
-      :title="empty.title"
-      :content="empty.content"
-      :action="empty.action"
-      @action-click="newTodo()" />
+    <template v-else>
+      <empty-state
+        v-if="empty"
+        :title="empty.title"
+        :content="empty.content"
+        :action="empty.action"
+        @action-click="newTodo()" />
+      <empty-state v-else />
+    </template>
   </section>
 </template>
 
@@ -50,7 +53,7 @@ export default class TodoList extends Vue {
   @Prop({
     default: () => ([])
   }) private todos!: Todo[]
-  @Prop(Object) private empty!: IEmptyState;
+  @Prop(Object) private empty?: IEmptyState;
   @Prop({
     type: String,
     required: true,

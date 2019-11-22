@@ -19,6 +19,9 @@
       v-else
       v-for="n in 4"
       :key="n * 9999" />
+    <template v-slot:footer>
+      <actions-bar />
+    </template>
   </layout>
 </template>
 
@@ -33,6 +36,7 @@ import TodoList from '@/components/TodoList.vue'
 import TabList from '@/components/TabList.vue'
 import TabItem from '@/components/TabItem.vue'
 import EmptyState from '@/components/EmptyState.vue'
+import ActionsBar from '@/components/ActionsBar.vue'
 
 // Types
 import { ITab } from '@/@types/types'
@@ -48,7 +52,8 @@ import Standup from '@/models/Standup'
     TodoList,
     TabItem,
     TabList,
-    EmptyState
+    EmptyState,
+    ActionsBar
   }
 })
 export default class Home extends Vue {

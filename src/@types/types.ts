@@ -6,7 +6,8 @@ export interface RootState {
   notifications?: INotification[];
   channels?: IChannel[];
   channel: IChannel | null;
-  standups: Standup[]
+  standups: Standup[];
+  urls: IUrls[];
 }
 
 export interface INotification {

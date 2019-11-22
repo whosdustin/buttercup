@@ -1,4 +1,3 @@
-// const JIRA = ([A-Z]*\-[0-9]*)
 import Block from './Block'
 import Message from './Message'
 import Standup from './Standup'
@@ -27,7 +26,6 @@ export default class Slack {
 
   private createBlocks(): void {
     let title: Block;
-    let list: string;
 
     this.blocks.push(
       new Block('Standup Response'),
@@ -35,6 +33,7 @@ export default class Slack {
     )
 
     this.standups.forEach((standup) => {
+      let list: string = '';
       const section = standup.empty
         ? standup.empty.title
         : standup.section
@@ -55,16 +54,22 @@ export default class Slack {
   }
 
   private linkify(text: string) {
+    let newText: string = '';
+    if (!this.urls) {
+      return text
+    }
+
     this.urls.forEach((url) => {
-      text.replace(
+      newText = text.replace(
         this.captureLink(url.match),
         `<${url.prepend}$2|$2>`
       )
     })
-    return text
+
+    return newText
   }
 
   private captureLink(match: string) {
-    return new RegExp(`(\[)${match}(\])`, 'g')
+    return new RegExp(`([\[*])(${match})([\]*])`, 'g')
   }
 }

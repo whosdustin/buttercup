@@ -9,12 +9,20 @@ describe('@components/TodoList', () => {
   let wrapper: Wrapper<TodoList>;
 
   it('exports a valid component', () => {
-    wrapper = mount(TodoList);
+    wrapper = mount(TodoList, {
+      propsData: {
+        section: 'present'
+      }
+    });
     expect(wrapper.isVueInstance()).toBe(true);
   });
 
   it('displays only empty state when no todos', async () => {
-    wrapper = shallowMount(TodoList)
+    wrapper = shallowMount(TodoList, {
+      propsData: {
+        section: 'present'
+      }
+    })
 
     await wrapper.vm.$nextTick()
     expect(wrapper.find('empty-state-stub').exists()).toBe(true)
@@ -24,6 +32,7 @@ describe('@components/TodoList', () => {
   it('displays a todo item when data is sent', async () => {
     wrapper = shallowMount(TodoList, {
       propsData: {
+        section: 'present',
         todos: [ new Todo('Hello') ]
       }
     })
@@ -36,6 +45,7 @@ describe('@components/TodoList', () => {
   it('prints data in todo-item when data sent', async () => {
     wrapper = shallowMount(TodoList, {
       propsData: {
+        section: 'present',
         todos: [ new Todo('Hello') ]
       },
       stubs: { 'todo-item': TodoItem }

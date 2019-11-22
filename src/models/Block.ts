@@ -1,8 +1,8 @@
 import { IBlockContent, BlockType } from '../@types/types'
 
 export default class Block {
-  private type: BlockType;
-  private text?: IBlockContent;
+  public type: BlockType;
+  public text?: IBlockContent;
   constructor(
     text: string | null,
     type: BlockType = 'section',
