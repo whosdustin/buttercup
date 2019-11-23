@@ -4,6 +4,7 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/components/**.{ts,vue}',
     '<rootDir>/src/views/**.{ts,vue}',
+    '<rootDir>/src/layout/**.{ts,vue}',
     '!**/node_modules/**'
   ],
   // coverageReporters: ['text-summary']

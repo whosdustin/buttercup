@@ -20,6 +20,14 @@ const routes = [
     meta: {
       title: 'Settings | Buttercup'
     }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName Login */'@/views/Login.vue'),
+    meta: {
+      title: 'Login | Buttercup'
+    }
   }
 ];
 
