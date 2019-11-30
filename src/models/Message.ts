@@ -1,6 +1,6 @@
-import { KnownBlock, Block, ChatPostMessageArguments } from '@slack/web-api';
+import Block from './Block'
 
-export default class Message implements ChatPostMessageArguments {
+export default class Message {
   [key: string]: any
   public channel: string;
   public text: string;
@@ -11,7 +11,7 @@ export default class Message implements ChatPostMessageArguments {
   constructor(
     token: string,
     channel: string,
-    blocks: Array<KnownBlock | Block>,
+    blocks: Block[],
     // tslint:disable-next-line
     as_user: boolean = true
   ) {
