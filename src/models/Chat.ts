@@ -3,16 +3,19 @@ import Message from './Message'
 import Standup from './Standup'
 import { IUrls } from '../@types/types'
 
-export default class Slack {
+export default class Chat {
   private blocks: Block[];
   private standups: Standup[];
   private channel: string;
   private urls: IUrls[];
+  private token: string;
   constructor(
+    token: string,
     standups: Standup[],
     channel: string,
     urls: IUrls[]
   ) {
+    this.token = token
     this.standups = standups
     this.channel = channel
     this.urls = urls
@@ -21,12 +24,14 @@ export default class Slack {
 
   public message() {
     this.createBlocks()
-    return new Message(this.channel, this.blocks)
+    return new Message(this.token, this.channel, this.blocks)
   }
 
   private createBlocks(): void {
     let title: Block;
-
+    // const response = {...new Block('Standup Response')}
+    // const divider = {...new Block(null, 'divider')}
+    // const none = {...new Block('> None')}
     this.blocks.push(
       new Block('Standup Response'),
       new Block(null, 'divider')
@@ -48,7 +53,7 @@ export default class Slack {
       standup.todos.forEach((todo) => {
         list += this.linkify(todo.text) + '\n'
       })
-
+      // const items = {...new Block(`>>> ${list.trim()}`)}
       this.blocks.push(title, new Block(`>>> ${list.trim()}`))
     })
   }

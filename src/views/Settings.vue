@@ -17,6 +17,11 @@
           </span>
           <span>Back</span>
         </base-button>
+        <base-button
+          v-if="$auth.isAuthenticated"
+          @click="logout">
+          Log out
+        </base-button>
       </div>
     </div>
   </layout>
@@ -28,39 +33,54 @@ import { Vue, Component } from 'vue-property-decorator'
 // Layout
 import Layout from '@/layout/Default.vue'
 
+// Store
+import { mapActions } from 'vuex'
+
 // Components
 import SearchDropdown from '@/components/SearchDropdown.vue'
 import BaseButton from '@/components/BaseButton.vue'
 
 // Utils
 import Channel from '../../tests/utils/Channel'
+import Management from '@/utils/Management'
+import axios from 'axios'
 
 @Component({
   components: {
     Layout,
     SearchDropdown,
     BaseButton
+  },
+  methods: {
+    ...mapActions(['getChannels'])
   }
 })
 export default class Settings extends Vue {
-  get channels() {
-    const list = [
-      'Alma',
-      'Polaris',
-      'Andromeda',
-      'Nebula',
-      'Conagra',
-      'Sales',
-      'Support',
-      'General',
-      'Random',
-      'Parade',
-      'Lobster'
-    ]
+  private api = process.env.VUE_APP_AUTH_AUDIENCE
+  private channels = this.$store.state.channels
+  private getChannels!: any;
 
-    const channelList = list
-      .map((item: string) => new Channel(list.indexOf(item), item))
-    return channelList
+  private async created() {
+    try {
+      const id: any = await this.$auth.getIdTokenClaims()
+      const token = await Management.token()
+      const { data } = await axios.get(`${this.api}users/${id.sub}`, {
+        headers: { Authorization: `Bearer ${token.access_token}` }
+      })
+      this.getChannels(data.token)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  private mounted() {
+    console.log(this.channels)
+  }
+
+  private logout() {
+    this.$auth.logout({
+      returnTo: window.location.origin
+    })
   }
 }
 </script>

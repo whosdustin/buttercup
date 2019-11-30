@@ -7,9 +7,12 @@ import {
   ITodosBySection
 } from '@/@types/types'
 
+// tslint:disable-next-line
+const Slack = require('slack')
+
 // Models
 import Standup from '@/models/Standup'
-import Slack from '@/models/Slack'
+import Chat from '@/models/Chat'
 import Notify from '@/models/Notify'
 
 Vue.use(Vuex);
@@ -55,7 +58,7 @@ const store: StoreOptions<RootState> = {
     ]
   },
   actions: {
-    async sendToSlack({ commit, state }) {
+    async sendToSlack({ commit, state }, token) {
       try {
         if (!state.channel) {
           commit('ADD_NOTIFICATION',
@@ -64,31 +67,36 @@ const store: StoreOptions<RootState> = {
           return
         }
 
-        const slack = new Slack(
+        const client = new Slack(token)
+        const chat = new Chat(
+          token,
           state.standups,
           state.channel.id,
           state.urls
         )
+        const result = await client.chat.postMessage(chat.message())
 
-        // TODO: Instansiate Client and Send to Slack
-        // const client = new WebClient(state.token)
-        // const result = await client.chat.postMessage(slack.message())
-
-        // if (result.ok) {
-        //   commit('ADD_NOTIFICATION',
-        //     new Notify('SUCCESS! Your message was posted.', 'success')
-        //   )
-        // }
+        if (result.ok) {
+          commit('ADD_NOTIFICATION',
+            new Notify('SUCCESS! Your message was posted.', 'success')
+          )
+        }
       } catch (error) {
-        // if (error.code === ErrorCode.PlatformError) {
-        //   commit('ADD_NOTIFICATION', new Notify(error.data))
-        // } else {
-        //   // Some other error, oh no!
-        //   commit('ADD_NOTIFICATION', new Notify('Whoops! Call Dustin.'))
-        // }
+        commit('ADD_NOTIFICATION', new Notify(error))
       }
+    },
+    async getChannels({ commit, state }, token) {
+      try {
+        if (state.channels && state.channels.length) {
+          return
+        }
 
-
+        const client = new Slack(token)
+        const result = await client.channels.list({token})
+        commit('SET_CHANNELS', result.channels)
+      } catch (error) {
+        commit('ADD_NOTIFICATION', new Notify(error))
+      }
     }
   },
   mutations: {
@@ -100,6 +108,9 @@ const store: StoreOptions<RootState> = {
     },
     SET_CHANNEL(state, channel: IChannel) {
       state.channel = channel;
+    },
+    SET_CHANNELS(state, channels: IChannel[]) {
+      state.channels = channels
     },
     ADD_NOTIFICATION(state, notification: INotification) {
       // Confirm Is Array
