@@ -4,7 +4,7 @@ import Todo from '@/models/Todo';
 
 export interface RootState {
   notifications?: INotification[];
-  channels?: IChannel[];
+  channels?: IChannel[] | null;
   channel: IChannel | null;
   standups: Standup[];
   urls: IUrls[];

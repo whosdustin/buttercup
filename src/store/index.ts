@@ -24,7 +24,7 @@ const store: StoreOptions<RootState> = {
   state: {
     date: dayjs(new Date()).valueOf(),
     notifications: [],
-    channels: [],
+    channels: null,
     channel: null,
     urls: [{
       name: 'Jira',
