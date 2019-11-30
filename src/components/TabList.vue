@@ -44,6 +44,3 @@ export default class TabList extends Vue {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-</style>

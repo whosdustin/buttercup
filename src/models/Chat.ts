@@ -2,6 +2,7 @@ import Block from './Block'
 import Message from './Message'
 import Standup from './Standup'
 import { IUrls } from '../@types/types'
+import dayjs from 'dayjs'
 
 export default class Chat {
   private blocks: Block[];
@@ -9,12 +10,15 @@ export default class Chat {
   private channel: string;
   private urls: IUrls[];
   private token: string;
+  private date: string;
   constructor(
+    date: number,
     token: string,
     standups: Standup[],
     channel: string,
     urls: IUrls[]
   ) {
+    this.date = dayjs(date).format('dddd, MMMM D')
     this.token = token
     this.standups = standups
     this.channel = channel
@@ -29,11 +33,8 @@ export default class Chat {
 
   private createBlocks(): void {
     let title: Block;
-    // const response = {...new Block('Standup Response')}
-    // const divider = {...new Block(null, 'divider')}
-    // const none = {...new Block('> None')}
     this.blocks.push(
-      new Block('Standup Response'),
+      new Block(`Standup Response for *${this.date}*`),
       new Block(null, 'divider')
     )
 
@@ -43,7 +44,7 @@ export default class Chat {
         ? standup.empty.title
         : standup.section
 
-      title = new Block(section)
+      title = new Block(`*${section}*`)
 
       if (standup.todos.length === 0) {
         this.blocks.push(title, new Block('> None'))
@@ -53,7 +54,7 @@ export default class Chat {
       standup.todos.forEach((todo) => {
         list += this.linkify(todo.text) + '\n'
       })
-      // const items = {...new Block(`>>> ${list.trim()}`)}
+
       this.blocks.push(title, new Block(`>>> ${list.trim()}`))
     })
   }

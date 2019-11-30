@@ -4,8 +4,8 @@
       v-if="standups"
       @active-tab="displayTitle">
       <tab-item
-        v-for="(s, i) in standups"
-        :key="`${s.section}-${i}`"
+        v-for="s in standups"
+        :key="`${s.section}-${uid}`"
         :name="s.name"
         :icon="s.icon"
         :selected="title === s.name">
@@ -58,6 +58,7 @@ import Standup from '@/models/Standup'
 })
 export default class Home extends Vue {
   private today?: string;
+  private date!: number;
   private title: string = 'Today';
 
   get subtitle() {
@@ -68,9 +69,14 @@ export default class Home extends Vue {
     return this.$store.state.standups
   }
 
+  get uid() {
+    return this.$store.state.date
+  }
+
   private created() {
-    const $today = new Date()
-    this.today = dayjs($today).format('dddd | MMMM D, YYYY')
+    this.$store.commit('SET_DATE')
+    this.date = this.$store.state.date
+    this.today = dayjs(this.date).format('dddd, MMMM D')
   }
 
   private displayTitle(tab: ITab) {

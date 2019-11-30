@@ -6,7 +6,7 @@ import {
   IChannel,
   ITodosBySection
 } from '@/@types/types'
-
+// tslint:disbable: no-console
 // tslint:disable-next-line
 const Slack = require('slack')
 
@@ -15,10 +15,14 @@ import Standup from '@/models/Standup'
 import Chat from '@/models/Chat'
 import Notify from '@/models/Notify'
 
+// Utils
+import dayjs from 'dayjs'
+
 Vue.use(Vuex);
 
 const store: StoreOptions<RootState> = {
   state: {
+    date: dayjs(new Date()).valueOf(),
     notifications: [],
     channels: [],
     channel: null,
@@ -69,6 +73,7 @@ const store: StoreOptions<RootState> = {
 
         const client = new Slack(token)
         const chat = new Chat(
+          state.date,
           token,
           state.standups,
           state.channel.id,
@@ -97,6 +102,26 @@ const store: StoreOptions<RootState> = {
       } catch (error) {
         commit('ADD_NOTIFICATION', new Notify(error))
       }
+    },
+    async refreshPastTodos({ commit }) {
+      return new Promise((resolve, reject) => {
+        commit('PRESENT_TO_PAST_TODOS')
+        resolve()
+      })
+    },
+    async refreshPresentTodos({ commit }) {
+      return new Promise((resolve, reject) => {
+        commit('CLEAR_PRESENT_TODOS')
+        resolve()
+      })
+    },
+    async refreshTodos({ dispatch, commit }) {
+      return dispatch('refreshPastTodos')
+        .then(() => {
+          dispatch('refreshPresentTodos').then(() => {
+            commit('SET_DATE')
+          })
+      })
     }
   },
   mutations: {
@@ -105,6 +130,9 @@ const store: StoreOptions<RootState> = {
         const $store = localStorage.getItem('store') || ''
         this.replaceState(Object.assign(state, JSON.parse($store)))
       }
+    },
+    SET_DATE(state) {
+      state.date = dayjs(new Date()).valueOf()
     },
     SET_CHANNEL(state, channel: IChannel) {
       state.channel = channel;
@@ -137,6 +165,25 @@ const store: StoreOptions<RootState> = {
       state.standups
         .filter((standup) => standup.section === todosBySection.section)
         .map((standup) => standup.todos = todosBySection.todos)
+    },
+    PRESENT_TO_PAST_TODOS(state) {
+      const present = state.standups
+        .filter((standup) => standup.section === 'present')
+
+      state.standups
+        .filter((standup) => standup.section === 'past')
+        .map((standup) => standup.todos = present[0].todos)
+    },
+    CLEAR_PRESENT_TODOS(state) {
+      const present = state.standups
+        .find((standup) => standup.section === 'present')
+
+      const notDone = present!.todos
+        .filter((todo) => todo.done === false)
+
+      state.standups
+        .filter((standup) => standup.section === 'present')
+        .map((standup) => standup.todos = notDone)
     }
   }
 }

@@ -8,6 +8,7 @@ export interface RootState {
   channel: IChannel | null;
   standups: Standup[];
   urls: IUrls[];
+  date: number;
 }
 
 export interface INotification {

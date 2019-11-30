@@ -2,6 +2,7 @@
   <section class="columns">
     <div class="column">
       <base-button
+        @click="refresh"
         color="warning">
         <span>New Day</span>
         <span class="icon is-small">
@@ -57,13 +58,15 @@ interface ISendToSlack {
     BaseButton
   },
   methods: {
-    ...mapActions(['sendToSlack'])
+    ...mapActions([
+      'sendToSlack',
+      'refreshTodos'
+    ])
   }
 })
 export default class ActionsBar extends Vue {
-  // tslint:disbale:no-console */
   private sendToSlack!: any;
-  private api = process.env.VUE_APP_AUTH_AUDIENCE
+  private refreshTodos!: any;
 
   private login() {
     this.$auth.loginWithRedirect({
@@ -71,14 +74,16 @@ export default class ActionsBar extends Vue {
     })
   }
 
+  private refresh() {
+    this.refreshTodos()
+  }
+
   private async onSubmit() {
     try {
       const id: any = await this.$auth.getIdTokenClaims()
-      const token = await Management.token()
-      const { data } = await axios.get(`${this.api}users/${id.sub}`, {
-        headers: { Authorization: `Bearer ${token.access_token}` }
-      })
-      this.sendToSlack(data.token)
+      const management = new Management(id)
+      const token = await management.token()
+      this.sendToSlack(token)
     } catch (error) {
       this.$store.commit('ADD_NOTIFICATION', new Notify('Oops: ' + error))
     }
