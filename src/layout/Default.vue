@@ -15,6 +15,7 @@
           </div>
           <nav class="column is-narrow">
             <router-link
+              v-if="$auth.isAuthenticated"
               title="Settings"
               to="settings">
               <span class="icon is-large has-text-grey-light">
@@ -41,7 +42,13 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
-@Component
+import BaseButton from '@/components/BaseButton.vue'
+
+@Component({
+  components: {
+    BaseButton
+  }
+})
 export default class Layout extends Vue {
   @Prop(String) private title?: string;
   @Prop(String) private subtitle?: string;
@@ -60,5 +67,4 @@ footer
   padding: 1em
   left: 50%
   bottom: 0
-
 </style>
