@@ -1,5 +1,5 @@
 <template>
-  <div :class="['columns', { faded: todo.done }]">
+  <div :class="['columns', 'is-mobile', { faded: todo.done }]">
     <div class="column is-narrow">
       <base-checkbox
         :id="id"

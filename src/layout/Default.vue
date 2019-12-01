@@ -2,7 +2,7 @@
   <section class="default-layout">
     <div class="columns is-centered">
       <div class="column is-half">
-        <div class="columns">
+        <div class="columns is-mobile">
           <div class="column">
             <h1
               v-if="title"
@@ -56,9 +56,12 @@ export default class Layout extends Vue {
 </script>
 
 <style lang="stylus" scoped>
+@import '../assets/stylus/utilities/_all.styl'
 .default-layout,
 .default-layout
   height: 100%
+  +mobile()
+    padding: 0 1em
 
 footer
   width: 100vw

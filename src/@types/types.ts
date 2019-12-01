@@ -17,6 +17,7 @@ export interface INotification {
 }
 
 export type ColorState = 'primary' | 'link' | 'info' | 'success' | 'warning' | 'danger';
+export type SizeState = 'small' | 'medium' | 'large' | 'fullwidth'
 
 export interface IChannel {
   id: string,

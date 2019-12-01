@@ -1,7 +1,7 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import Login from '@/components/Login.vue';
+import Login from '@/views/Login.vue';
 
-describe('@components/Login', () => {
+describe('@views/Login', () => {
   let wrapper: Wrapper<Login>;
 
   it('exports a valid component', () => {

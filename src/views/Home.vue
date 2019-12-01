@@ -47,6 +47,7 @@ import Todo from '@/models/Todo'
 import Standup from '@/models/Standup'
 
 @Component({
+  title: 'Home',
   components: {
     Layout,
     TodoList,

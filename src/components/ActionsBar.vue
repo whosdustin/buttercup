@@ -1,7 +1,8 @@
 <template>
-  <section class="columns">
+  <section class="columns is-mobile">
     <div class="column">
       <base-button
+        v-if="isAuth"
         @click="refresh"
         color="warning">
         <span>New Day</span>
@@ -12,19 +13,20 @@
     </div>
     <div class="column has-text-right">
       <base-button
-        v-if="!$auth.isAuthenticated"
-        @click="login">
-        <span>Login and send to Slack</span>
-        <span class="icon">
-          <i class="fab fa-slack" />
-        </span>
-      </base-button>
-      <base-button
-        v-else
+        v-if="isAuth"
         @click="onSubmit">
         <span>Send to Slack</span>
         <span class="icon is-small">
           <i class="fab fa-slack" aria-hidden="true"></i>
+        </span>
+      </base-button>
+      <base-button
+        v-else
+        size="fullwidth"
+        @click="login">
+        <span>Login and send to Slack</span>
+        <span class="icon">
+          <i class="fab fa-slack" />
         </span>
       </base-button>
     </div>
@@ -68,6 +70,10 @@ export default class ActionsBar extends Vue {
   private sendToSlack!: any;
   private refreshTodos!: any;
 
+  get isAuth() {
+    return this.$auth.isAuthenticated || false
+  }
+
   private login() {
     this.$auth.loginWithRedirect({
       connection: 'slack'
@@ -85,7 +91,7 @@ export default class ActionsBar extends Vue {
       const token = await management.token()
       this.sendToSlack(token)
     } catch (error) {
-      this.$store.commit('ADD_NOTIFICATION', new Notify('Oops: ' + error))
+      this.$store.commit('ADD_NOTIFICATION', new Notify(error))
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
-  <layout title="Profile">
-    <div class="columns has-text-white is-vcentered">
+  <layout title="Settings">
+    <div class="columns is-mobile has-text-white is-vcentered">
       <div class="column is-narrow">
         <figure class="image is-64x64">
           <img
@@ -15,7 +15,6 @@
     </div>
     <div class="columns has-text-white">
       <div class="column">
-        <h2 class="title size-4 has-text-white">Settings</h2>
         <hr>
         <div class="field" v-if="channels">
           <label class="label has-text-white">
@@ -32,7 +31,7 @@
       </div>
     </div>
     <template v-slot:footer>
-      <div class="columns">
+      <div class="columns is-mobile">
         <div class="column">
           <base-button
             @click="$router.push('/')">
@@ -78,6 +77,7 @@ import Management from '@/utils/Management'
 import Notify from '@/models/Notify'
 
 @Component({
+  title: 'Settings',
   components: {
     Layout,
     SearchDropdown,
@@ -109,10 +109,6 @@ export default class Settings extends Vue {
   private handleUpdate() {
     this.channelList = this.channels
   }
-
-  // private mounted() {
-  //   this.channels = this.$store.state.channels
-  // }
 
   private logout() {
     this.$auth.logout({

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import DocumentTitle from '@/mixins/documentTitle'
 import '@fortawesome/fontawesome-free/js/all'
 import './assets/main.styl';
 
@@ -25,6 +26,8 @@ Vue.use(Auth0Plugin, {
     );
   }
 })
+
+Vue.mixin(DocumentTitle)
 
 Vue.config.productionTip = false;
 

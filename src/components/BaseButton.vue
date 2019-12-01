@@ -9,10 +9,11 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 
-import { ColorState } from '@/@types/types'
+import { ColorState, SizeState } from '@/@types/types'
 @Component
 export default class BaseButton extends Vue {
-  @Prop({ default: 'primary'}) private color!: ColorState;
+  @Prop({ default: 'primary' }) private color!: ColorState;
+  @Prop({ default: 'normal' }) private size!: SizeState;
 
   get classList() {
     return [
@@ -20,7 +21,8 @@ export default class BaseButton extends Vue {
       'is-outlined',
       'is-rounded',
       'is-uppercase',
-      `is-${this.color}`
+      `is-${this.color}`,
+      `is-${this.size}`
     ]
   }
 }

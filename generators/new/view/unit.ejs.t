@@ -1,13 +1,13 @@
 ---
-to: "tests/view/<%= h.changeCase.kebab(name) %>.spec.ts"
+to: "tests/views/<%= h.changeCase.kebab(name) %>.spec.ts"
 ---
 <%
   let fileName = h.changeCase.pascal(name)
   const importName = h.changeCase.pascal(fileName)
 %>import { mount, Wrapper } from '@vue/test-utils';
-import <%= importName %> from '@/components/<%= fileName %>.vue';
+import <%= importName %> from '@/views/<%= fileName %>.vue';
 
-describe('@components/<%= fileName %>', () => {
+describe('@views/<%= fileName %>', () => {
   let wrapper: Wrapper<<%= fileName %>>;
 
   it('exports a valid component', () => {

@@ -7,5 +7,5 @@ module.exports = {
     '<rootDir>/src/layout/**.{ts,vue}',
     '!**/node_modules/**'
   ],
-  // coverageReporters: ['text-summary']
+  coverageReporters: ['text-summary']
 }
