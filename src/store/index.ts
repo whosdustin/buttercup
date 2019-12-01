@@ -62,10 +62,16 @@ const store: StoreOptions<RootState> = {
     ]
   },
   actions: {
-    async sendToSlack({ commit, state }, token) {
+    async newNotification({ commit }, notification: INotification) {
+      commit('ADD_NOTIFICATION', notification)
+      setTimeout(() => {
+        commit('REMOVE_NOTIFICATION', notification.message)
+      }, 3000)
+    },
+    async sendToSlack({ commit, state, dispatch }, token) {
       try {
         if (!state.channel) {
-          commit('ADD_NOTIFICATION',
+          dispatch('newNotification',
             new Notify('HOLD UP: You must first select a channel to post.')
           )
           return
@@ -82,15 +88,15 @@ const store: StoreOptions<RootState> = {
         const result = await client.chat.postMessage(chat.message())
 
         if (result.ok) {
-          commit('ADD_NOTIFICATION',
+          dispatch('newNotification',
             new Notify('SUCCESS! Your message was posted.', 'success')
           )
         }
       } catch (error) {
-        commit('ADD_NOTIFICATION', new Notify(error))
+        dispatch('newNotification', new Notify(error))
       }
     },
-    async getChannels({ commit, state }, token) {
+    async getChannels({ commit, state, dispatch }, token) {
       try {
         if (state.channels && state.channels.length) {
           return
@@ -100,7 +106,7 @@ const store: StoreOptions<RootState> = {
         const result = await client.channels.list({token})
         commit('SET_CHANNELS', result.channels)
       } catch (error) {
-        commit('ADD_NOTIFICATION', new Notify(error))
+        dispatch('newNotification', new Notify(error))
       }
     },
     async refreshPastTodos({ commit }) {

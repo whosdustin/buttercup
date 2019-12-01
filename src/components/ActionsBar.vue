@@ -61,6 +61,7 @@ interface ISendToSlack {
   },
   methods: {
     ...mapActions([
+      'newNotification',
       'sendToSlack',
       'refreshTodos'
     ])
@@ -69,6 +70,7 @@ interface ISendToSlack {
 export default class ActionsBar extends Vue {
   private sendToSlack!: any;
   private refreshTodos!: any;
+  private newNotification!: any;
 
   get isAuth() {
     return this.$auth.isAuthenticated || false
@@ -91,7 +93,7 @@ export default class ActionsBar extends Vue {
       const token = await management.token()
       this.sendToSlack(token)
     } catch (error) {
-      this.$store.commit('ADD_NOTIFICATION', new Notify(error))
+      this.newNotification(new Notify(error))
     }
   }
 }
