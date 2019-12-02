@@ -16,13 +16,13 @@ import Chat from '@/models/Chat'
 import Notify from '@/models/Notify'
 
 // Utils
-import dayjs from 'dayjs'
+import Day from '@/utils/Day'
 
 Vue.use(Vuex);
 
 const store: StoreOptions<RootState> = {
   state: {
-    date: dayjs(new Date()).valueOf(),
+    date: Day.numeric(new Date()),
     notifications: [],
     channels: null,
     channel: null,
@@ -138,7 +138,7 @@ const store: StoreOptions<RootState> = {
       }
     },
     SET_DATE(state) {
-      state.date = dayjs(new Date()).valueOf()
+      state.date = Day.numeric(new Date())
     },
     SET_CHANNEL(state, channel: IChannel) {
       state.channel = channel;

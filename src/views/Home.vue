@@ -42,7 +42,8 @@ import ActionsBar from '@/components/ActionsBar.vue'
 import { ITab } from '@/@types/types'
 
 // Utils
-import dayjs from 'dayjs'
+// import dayjs from 'dayjs'
+import Day from '@/utils/Day'
 import Todo from '@/models/Todo'
 import Standup from '@/models/Standup'
 
@@ -77,7 +78,7 @@ export default class Home extends Vue {
   private created() {
     this.$store.commit('SET_DATE')
     this.date = this.$store.state.date
-    this.today = dayjs(this.date).format('dddd, MMMM D')
+    this.today = Day.pretty(this.date)
   }
 
   private displayTitle(tab: ITab) {

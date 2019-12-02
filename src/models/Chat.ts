@@ -1,8 +1,8 @@
 import Block from './Block'
 import Message from './Message'
 import Standup from './Standup'
-import { IUrls } from '../@types/types'
-import dayjs from 'dayjs'
+import { IUrls } from '@/@types/types'
+import Day from '@/utils/Day'
 
 export default class Chat {
   private blocks: Block[];
@@ -18,7 +18,7 @@ export default class Chat {
     channel: string,
     urls: IUrls[]
   ) {
-    this.date = dayjs(date).format('dddd, MMMM D')
+    this.date = Day.pretty(date)
     this.token = token
     this.standups = standups
     this.channel = channel
