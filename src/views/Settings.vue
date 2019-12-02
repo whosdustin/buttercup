@@ -105,6 +105,10 @@ export default class Settings extends Vue {
       })
   }
 
+  private mounted() {
+    this.channelList = this.channels
+  }
+
   @Watch('channels')
   private handleUpdate() {
     this.channelList = this.channels

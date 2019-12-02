@@ -1,5 +1,6 @@
 import { getInstance } from './index'
 import { NavigationGuard } from 'vue-router'
+import store from '@/store'
 
 export const authGuard: NavigationGuard = (to, from, next) => {
   const authService = getInstance()

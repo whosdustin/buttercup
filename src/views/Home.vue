@@ -9,6 +9,12 @@
         :name="s.name"
         :icon="s.icon"
         :selected="title === s.name">
+        <empty-state
+          v-if="userSetup"
+          title="Some Setup Needed!"
+          content="Choose a channel to send your standup to."
+          action="Visit Settings"
+          @action-click="$router.push('/settings')" />
         <todo-list
           :section="s.section"
           :todos="s.todos"
@@ -42,7 +48,6 @@ import ActionsBar from '@/components/ActionsBar.vue'
 import { ITab } from '@/@types/types'
 
 // Utils
-// import dayjs from 'dayjs'
 import Day from '@/utils/Day'
 import Todo from '@/models/Todo'
 import Standup from '@/models/Standup'
@@ -73,6 +78,10 @@ export default class Home extends Vue {
 
   get uid() {
     return this.$store.state.date
+  }
+
+  get userSetup() {
+    return this.$auth.isAuthenticated && !this.$store.state.channel
   }
 
   private created() {

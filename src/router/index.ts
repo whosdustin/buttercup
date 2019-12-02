@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Home from '@/views/Home.vue';
 import { authGuard } from '@/plugins/auth'
+
+import store from '@/store'
 
 Vue.use(VueRouter);
 
@@ -9,27 +11,18 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
-    meta: {
-      title: 'Buttercup'
-    },
+    component: Home
   },
   {
     path: '/settings',
     name: 'settings',
     component: () => import(/* webpackChunkName Settings */'@/views/Settings.vue'),
-    meta: {
-      title: 'Settings | Buttercup'
-    },
     beforeEnter: authGuard
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName Login */'@/views/Login.vue'),
-    meta: {
-      title: 'Login | Buttercup'
-    }
+    component: () => import(/* webpackChunkName Login */'@/views/Login.vue')
   }
 ];
 
