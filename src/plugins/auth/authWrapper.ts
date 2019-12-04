@@ -88,7 +88,7 @@ export const useAuth0 = ({
         client_id: options.clientId,
         redirect_uri: redirectUri,
         audience: options.audience,
-        connection: 'slack',
+        connection: 'slack-meredith',
       });
 
       try {
