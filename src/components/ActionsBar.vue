@@ -78,7 +78,7 @@ export default class ActionsBar extends Vue {
 
   private login() {
     this.$auth.loginWithRedirect({
-      connection: 'slack'
+      connection: 'slack-meredith'
     })
   }
 
